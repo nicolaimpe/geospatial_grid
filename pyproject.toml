@@ -1,0 +1,24 @@
+[project]
+name = "gisgrid"
+version = "0.1.0"
+description = "Wrap-up rioxarray reprojection for xarray in a GIS (Geographical Information Systems) convenient logic"
+authors = [
+    {name = "Nicola Imperatore", email = "nicola.imperatore@meteo.fr"},
+]
+dependencies = ["xarray>=2025.12.0", "dask>=2025.12.0", "netCDF4>=1.7.3", "bottleneck>=1.6.0", "rioxarray>=0.20.0"]
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
