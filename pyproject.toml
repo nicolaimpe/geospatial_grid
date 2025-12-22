@@ -21,4 +21,5 @@ distribution = true
 [dependency-groups]
 dev = [
     "pytest>=8.4.2",
+    "tox>=4.32.0",
 ]

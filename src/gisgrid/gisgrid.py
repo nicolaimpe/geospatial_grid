@@ -1,4 +1,4 @@
-from typing import Self, Tuple
+from typing import Tuple
 
 import numpy as np
 import xarray as xr
@@ -109,7 +109,7 @@ class GisGrid:
         return transformer.transform_bounds(*self.extent_llx_lly_urx_ury)
 
     @classmethod
-    def from_xarray(cls, data: xr.Dataset | xr.DataArray) -> Self:
+    def from_xarray(cls, data: xr.Dataset | xr.DataArray):
         """Be very careful"""
 
         res_x = data.rio.transform().a
