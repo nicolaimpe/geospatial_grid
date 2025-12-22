@@ -5,8 +5,8 @@ description = "Wrap-up rioxarray reprojection for xarray in a GIS (Geographical 
 authors = [
     {name = "Nicola Imperatore", email = "nicola.imperatore@meteo.fr"},
 ]
-dependencies = ["xarray>=2025.12.0", "dask>=2025.12.0", "netCDF4>=1.7.3", "bottleneck>=1.6.0", "rioxarray>=0.20.0"]
-requires-python = ">=3.12"
+dependencies = ["xarray>=2024.7.0", "dask>=2024.8.0", "netCDF4>=1.7.2", "bottleneck>=1.5.0", "rioxarray>=0.15.0"]
+requires-python = ">=3.10"
 readme = "README.md"
 license = {text = "MIT"}
 
@@ -20,5 +20,6 @@ distribution = true
 
 [dependency-groups]
 dev = [
-    "pytest>=9.0.2",
+    "pytest>=8.4.2",
+    "tox>=4.32.0",
 ]
