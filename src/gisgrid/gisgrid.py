@@ -14,9 +14,9 @@ class GisGridError(Exception):
 class GisGrid:
     def __init__(
         self,
-        resolution: float | int | np.float64 | Tuple[float, float],
         x0: float,
         y0: float,
+        resolution: float | int | np.float64 | Tuple[float, float],
         width: int,
         height: int,
         crs: CRS | None = None,

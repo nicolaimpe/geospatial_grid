@@ -3,7 +3,7 @@ import pyproj
 import rioxarray
 
 
-def georef_netcdf(data_array: xr.DataArray | xr.Dataset, crs: pyproj.CRS) -> xr.Dataset | xr.Dataset:
+def georef_netcdf_manually(data_array: xr.DataArray | xr.Dataset, crs: pyproj.CRS) -> xr.Dataset | xr.Dataset:
     """
     The strict minimum to georeference in netCDF convention
 

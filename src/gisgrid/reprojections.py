@@ -15,7 +15,7 @@ def reproject_data(
     nodata: int | float | None = None,
     transform: Affine | None = None,
     shape: Tuple[int, int] | None = None,
-) -> xr.DataArray:
+) -> xr.Dataset | xr.DataArray:
     # Wrap rioxarray reproject_data so that it's typed
 
     # Rioxarray reproject nearest by default
@@ -53,11 +53,11 @@ def reproject_onto(
     nodata: int | float | None = None,
     resampling_method: rasterio.enums.Resampling | None = None,
 ) -> xr.Dataset | xr.DataArray:
-    target_grid = GisGrid.from_dataset(target__data)
+    target_grid = GisGrid.from_xarray(target__data)
     data_reprojected = reproject_using_grid(
         data=data_to_reproject,
         output_grid=target_grid,
-        resampling=resampling_method,
+        resampling_method=resampling_method,
         nodata=nodata,
     )
 
