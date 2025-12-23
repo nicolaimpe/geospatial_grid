@@ -1,4 +1,4 @@
-from gisgird.gisgrid import GisGrid
+from geospatial_grid.gsgrid import GSGrid
 from pyproj import CRS
 
 
@@ -6,7 +6,7 @@ from pyproj import CRS
 PROJ4_MODIS = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs"
 
 
-class UTM375mGrid(GisGrid):
+class UTM375mGrid(GSGrid):
     def __init__(self) -> None:
         super().__init__(
             crs=CRS.from_epsg(32631),
@@ -19,7 +19,7 @@ class UTM375mGrid(GisGrid):
         )
 
 
-class SIN375mGrid(GisGrid):
+class SIN375mGrid(GSGrid):
     def __init__(self) -> None:
         super().__init__(
             crs=CRS.from_proj4(PROJ4_MODIS),
@@ -32,7 +32,7 @@ class SIN375mGrid(GisGrid):
         )
 
 
-class LatLon375mGrid(GisGrid):
+class LatLon375mGrid(GSGrid):
     def __init__(self):
         super().__init__(
             crs=CRS.from_epsg(4326),

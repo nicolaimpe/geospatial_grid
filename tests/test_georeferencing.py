@@ -2,7 +2,7 @@ import numpy as np
 import xarray as xr
 import rioxarray
 from pyproj import CRS
-from gisgrid.georeferencing import georef_netcdf_manually, georef_netcdf_rioxarray
+from geospatial_grid.georeferencing import georef_netcdf_manually, georef_netcdf_rioxarray
 import pandas as pd
 import pytest
 

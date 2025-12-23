@@ -7,11 +7,11 @@ from pyproj import CRS, Transformer
 from rasterio.transform import from_origin
 
 
-class GisGridError(Exception):
+class GSGridError(Exception):
     pass
 
 
-class GisGrid:
+class GSGrid:
     def __init__(
         self,
         x0: float,
@@ -30,7 +30,7 @@ class GisGrid:
             self.resolution_x = resolution[0]
             self.resolution_y = resolution[1]
         else:
-            raise GisGridError("Problem with resolution argument")
+            raise GSGridError("Problem with resolution argument")
         self.x0 = x0
         self.y0 = y0
         self.width = width
@@ -122,10 +122,10 @@ class GisGrid:
         if not np.array_equal(x_coords, np.arange(x_coords[0], x_coords[0] + width * res_x, res_x)) or not np.array_equal(
             y_coords, np.arange(y_coords[0], y_coords[0] + height * res_y, res_y)
         ):
-            raise GisGridError("Data need to be on a reguraly spaced grid")
+            raise GSGridError("Data need to be on a reguraly spaced grid")
 
         if res_y > 0:
-            raise GisGridError(
+            raise GSGridError(
                 "Dataset/DatArray y coordinates have to be decreasing (from North to South) to use this function."
             )
         return cls(

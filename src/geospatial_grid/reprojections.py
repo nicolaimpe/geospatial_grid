@@ -3,7 +3,7 @@ import pyproj
 import rasterio
 from affine import Affine
 from typing import Tuple, Dict
-from gisgrid.gisgrid import GisGrid
+from geospatial_grid.gsgrid import GSGrid
 import numpy as np
 
 
@@ -31,7 +31,7 @@ def reproject_data(
 
 def reproject_using_grid(
     data: xr.Dataset | xr.DataArray,
-    output_grid: GisGrid,
+    output_grid: GSGrid,
     nodata: int | float | None = None,
     resampling_method: rasterio.enums.Resampling | None = None,
 ) -> xr.Dataset | xr.DataArray:
@@ -53,7 +53,7 @@ def reproject_onto(
     nodata: int | float | None = None,
     resampling_method: rasterio.enums.Resampling | None = None,
 ) -> xr.Dataset | xr.DataArray:
-    target_grid = GisGrid.from_xarray(target__data)
+    target_grid = GSGrid.from_xarray(target__data)
     data_reprojected = reproject_using_grid(
         data=data_to_reproject,
         output_grid=target_grid,
