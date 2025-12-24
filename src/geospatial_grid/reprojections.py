@@ -16,6 +16,11 @@ def reproject_data(
     transform: Affine | None = None,
     shape: Tuple[int, int] | None = None,
 ) -> xr.Dataset | xr.DataArray:
+    """Wrapper of rioxarray reproject so that it's typed.
+
+    See https://corteva.github.io/rioxarray/html/examples/reproject.html for params description.
+
+    """
     # Wrap rioxarray reproject_data so that it's typed
 
     # Rioxarray reproject nearest by default
@@ -35,6 +40,17 @@ def reproject_using_grid(
     nodata: int | float | None = None,
     resampling_method: rasterio.enums.Resampling | None = None,
 ) -> xr.Dataset | xr.DataArray:
+    """Object oriented regridding function.
+
+    Args:
+        data (xr.Dataset | xr.DataArray): Data to reproject
+        output_grid (GSGrid): Output grid definition in the form of an object
+        nodata (int | float | None, optional): no data value of the output Xarray object. Defaults to None.
+        resampling_method (rasterio.enums.Resampling | None, optional): Resampling method. Defaults to nearest in rio.reproject().
+
+    Returns:
+        xr.Dataset | xr.DataArray: the regridded Xarray object
+    """
     data_reprojected = reproject_data(
         data=data,
         shape=output_grid.shape,
@@ -47,24 +63,11 @@ def reproject_using_grid(
     return data_reprojected
 
 
-def reproject_onto(
-    data_to_reproject: xr.Dataset | xr.DataArray,
-    target__data: xr.Dataset | xr.DataArray,
-    nodata: int | float | None = None,
-    resampling_method: rasterio.enums.Resampling | None = None,
-) -> xr.Dataset | xr.DataArray:
-    target_grid = GSGrid.from_xarray(target__data)
-    data_reprojected = reproject_using_grid(
-        data=data_to_reproject,
-        output_grid=target_grid,
-        resampling_method=resampling_method,
-        nodata=nodata,
-    )
-
-    return data_reprojected
 
 
 def extract_netcdf_coords_from_rasterio_raster(raster: rasterio.DatasetReader) -> Dict[str, np.array]:
+    """Helper to convert rasterio transform in Xarray coordinates.
+    """
     transform = raster.transform
 
     x_scale, x_off, y_scale, y_off = transform.a, transform.c, transform.e, transform.f
@@ -76,4 +79,4 @@ def extract_netcdf_coords_from_rasterio_raster(raster: rasterio.DatasetReader) -
     # Compensate for it
     x_coord = np.arange(n_cols) * x_scale + x0
     y_coord = np.arange(n_rows) * y_scale + y0
-    return {"y": y_coord, "x": x_coord}
+    return xr.Coordinates({"y": y_coord, "x": x_coord})

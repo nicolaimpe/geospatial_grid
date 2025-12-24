@@ -7,6 +7,7 @@ PROJ4_MODIS = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_def
 
 
 class UTM375mGrid(GSGrid):
+    """This grid bound correspond to a bounding box including all mountaineous areas over metropolitan France in UTM31 projection."""
     def __init__(self) -> None:
         super().__init__(
             crs=CRS.from_epsg(32631),
@@ -18,8 +19,22 @@ class UTM375mGrid(GSGrid):
             name="UTM_375m",
         )
 
+class UTM375mGridCantal(GSGrid):
+    """This grid is used in the ecample_usage.ipynb notebook."""
+    def __init__(self) -> None:
+        super().__init__(
+            crs=CRS.from_epsg(32631),
+            resolution=375,
+            x0=446831,
+            y0=5024606,
+            width=155,
+            height=155,
+            name="UTM_375m_Cantal",
+        )
+
 
 class SIN375mGrid(GSGrid):
+    """This grid bound correspond to a bounding box including all mountaineous areas over metropolitan France in MODIS SIN Grid."""
     def __init__(self) -> None:
         super().__init__(
             crs=CRS.from_proj4(PROJ4_MODIS),
@@ -33,6 +48,7 @@ class SIN375mGrid(GSGrid):
 
 
 class LatLon375mGrid(GSGrid):
+    """This grid bound correspond to a bounding box including all mountaineous areas over metropolitan France in WGS84 geographic coordinates."""
     def __init__(self):
         super().__init__(
             crs=CRS.from_epsg(4326),

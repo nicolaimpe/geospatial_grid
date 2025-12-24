@@ -38,7 +38,14 @@ class GSGrid:
         self.name = name
 
     """
-    Regularly spaced grid
+    GSGrid (GeoSpatial grid) object for automation of reprojections in Python.
+
+    !!! READ CAREFULLY !!!
+    The grid is assumed to be:
+    - regularly spaced 
+    - on a coordinate system where x is a horizontal West axis and on y vertical North axis
+    - the origin is on the upper left corner. The cells on the vertical axis go from North to South (negative direction)
+
     x0,y0,xend,yend pixel corners
     xmin, ymin, xmax, ymax pixel centers
     width, height, number of pixel columns/rows
@@ -51,7 +58,7 @@ class GSGrid:
         |---------------------------------.................------------------
         |               |               |                   |               |
         |               |               |                   |               |
-        |
+        
 
     
     """
@@ -105,12 +112,13 @@ class GSGrid:
         return xr.Coordinates({"y": self.ycoords, "x": self.xcoords})
 
     def bounds_projected_to_epsg(self, target_epsg: int | str):
+        """Short-cut when we need grid bounds in another CRS."""
         transformer = Transformer.from_crs(crs_from=self.crs, crs_to=CRS.from_epsg(target_epsg), always_xy=True)
         return transformer.transform_bounds(*self.extent_llx_lly_urx_ury)
 
     @classmethod
     def from_xarray(cls, data: xr.Dataset | xr.DataArray):
-        """Be very careful"""
+        """Extract gridding information from an Xarray object and build a GSGrid object."""
 
         res_x = data.rio.transform().a
         res_y = data.rio.transform().e

@@ -25,9 +25,9 @@ def georef_netcdf_manually(data_array: xr.DataArray | xr.Dataset, crs: pyproj.CR
 
 def georef_netcdf_rioxarray(data_array: xr.DataArray | xr.Dataset, crs: pyproj.CRS) -> xr.Dataset | xr.DataArray:
     """
-    Turn a DataArray into a Dataset  for which the GDAL driver (GDAL and QGIS) is able to read the georeferencing
-    https://github.com/pydata/xarray/issues/2288
-    https://gis.stackexchange.com/questions/230093/set-projection-for-netcdf4-in-python
+    Turn a DataArray into a Dataset for which the GDAL driver (GDAL and QGIS) is able to read the georeferencing using rioxarray functions.
+
+    We too often forget write_coordinate_system()
     """
 
     return data_array.rio.write_crs(crs).rio.write_coordinate_system()
