@@ -1,5 +1,5 @@
 [project]
-name = "gisgrid"
+name = "geospatial_grid"
 version = "0.1.0"
 description = "Wrap-up rioxarray reprojection for xarray in a GIS (Geographical Information Systems) convenient logic"
 authors = [
