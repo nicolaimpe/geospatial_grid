@@ -1,7 +1,8 @@
-from typing import Tuple
+from typing import Any, Dict, Tuple
 
 import numpy as np
 import xarray as xr
+import yaml
 from affine import Affine
 from pyproj import CRS, Transformer
 from rasterio.transform import from_origin
@@ -144,3 +145,28 @@ class GSGrid:
             width=width,
             height=height,
         )
+
+    def as_dict(self) -> Dict[str, Any]:
+        obj_dict = self.__dict__
+        obj_dict["crs"] = obj_dict["crs"].to_proj4()
+        obj_dict["resolution"] = [obj_dict["resolution_x"], obj_dict["resolution_y"]]
+        obj_dict.pop("resolution_x"), obj_dict.pop("resolution_y")
+        return obj_dict
+
+    def to_yaml(self, yaml_filepath: str) -> None:
+        with open(yaml_filepath, "w") as file:
+            yaml.dump(self.as_dict(), file)
+
+    @classmethod
+    def from_yaml(cls, yaml_filepath: str):
+        with open(yaml_filepath, "r") as file:
+            yaml_content = yaml.safe_load(file)
+        yaml_content["crs"] = CRS.from_proj4(yaml_content["crs"])
+        return cls(**yaml_content)
+
+    def __repr__(self) -> str:
+        if self.name is None:
+            part1 = "Unnamed grid object"
+        else:
+            part1 = self.name
+        return f"{part1}: {self.as_dict()}"
